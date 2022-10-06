@@ -13,5 +13,3 @@ app.get("*", function (_, response) {
   response.sendFile(path.resolve(STATIC_FOLDER, "index.html"));
 });
 app.listen(port);
-
-console.log("server started on port " + port);

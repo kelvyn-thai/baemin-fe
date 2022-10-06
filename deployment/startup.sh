@@ -1,10 +1,10 @@
 #!/bin/bash
-APPNAME=poc-app
+APPNAME=baemin-fe
 cd /home/envuser/$APPNAME
 
-npx pm2 start server.js --name='poc-app'
+npx pm2 start server.js --name='baemin-fe'
 
 while true; do
     sleep 2
-    tail -n 50 ~/.pm2/logs/poc-app-error.log
+    tail -n 50 ~/.pm2/logs/baemin-fe-error.log
 done
