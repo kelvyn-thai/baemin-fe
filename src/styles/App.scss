@@ -6,12 +6,13 @@ body {
   background-color: $primary-light;
   color: $primary-dark;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
   min-width: 320px;
   max-width: 414px;
   margin: auto;
+  height: auto;
   border: solid $primary-dark;
   * {
     font-style: normal;

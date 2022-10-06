@@ -1,4 +1,5 @@
 import { ENV } from "env";
+import CategoryList from "pages/category/components/CategoryList";
 import React from "react";
 
 const HomePage: React.FC = () => {
@@ -7,6 +8,9 @@ const HomePage: React.FC = () => {
     <div>
       <div>
         <img src={`${ENV.ASSETS_PATH}/images/banner.png`} alt="banner" />
+      </div>
+      <div>
+        <CategoryList />
       </div>
     </div>
   );

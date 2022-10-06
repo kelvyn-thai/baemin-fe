@@ -7,6 +7,8 @@ import ErrorBoundary from "components/core/ErrorBoundary";
 import ModalAntd from "components/antd/Modal";
 import Modal from "components/core/Modal";
 import HomePage from "pages/home";
+import DriverPage from "pages/driver";
+import MerchantPage from "pages/merchant";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +19,11 @@ const queryClient = new QueryClient({
   },
 });
 
-const allRoutes: PathRouteProps[] = [{ path: "/", element: <HomePage /> }];
+const allRoutes: PathRouteProps[] = [
+  { path: "/", element: <HomePage /> },
+  { path: "/driver", element: <DriverPage /> },
+  { path: "/merchant/:categoryId", element: <MerchantPage /> },
+];
 
 const AllRoutes = ({ routes }: { routes: PathRouteProps[] }) => (
   <Routes>
