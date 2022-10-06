@@ -102,7 +102,7 @@
     "test": "jest",
     "eslint": "eslint \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
-    "deploy": "gh-pages -d build",
+    "deploy": "yarn build && gh-pages -d build",
     "webpack-analyzer": "REACT_APP_ENVIROMENT='predeploy' react-app-rewired build",
     "analyzer": "react-scripts build && source-map-explorer build/static/js/*.js"
   },
