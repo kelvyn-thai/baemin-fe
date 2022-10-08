@@ -4,18 +4,18 @@ import { createStore } from "zustand-store";
 interface ModalState {
   isVisible: boolean;
   content?: React.ReactNode | React.ReactElement | any;
-  data?: any; // them data cho modal
+  data?: any;
 }
 
 interface ModalActions {
-  setVisibleModal: ({
-    isVisible,
+  actionOpenModal: ({
     content,
+    data,
   }: {
-    isVisible: boolean;
     content?: React.ReactNode | React.ReactElement | any;
+    data?: any;
   }) => void;
-  setModalData: (data: any) => any;
+  actionCloseModal: () => any;
 }
 
 const initialState: ModalState = {
@@ -23,12 +23,12 @@ const initialState: ModalState = {
   content: null,
   data: {},
 };
-
 export const [useModalStore] = createStore<ModalState & ModalActions>(
   (set) => ({
     ...initialState,
-    setVisibleModal: ({ isVisible, content }) => set({ isVisible, content }),
-    setModalData: (data) => set({ data }),
+    actionOpenModal: ({ content, data }) =>
+      set({ data, content, isVisible: true }),
+    actionCloseModal: () => set({ ...initialState }),
   }),
   "useModalStore"
 );

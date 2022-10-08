@@ -1,6 +1,6 @@
 import { ENV } from "env";
 import HTTP from "http-request";
-import { CategoryResponse } from "./Category.typings";
+import { CategoryResponse } from "./CategoryList.typings";
 
 const http = new HTTP({ baseURL: `${ENV.API_DOMAIN_URL}/category` });
 

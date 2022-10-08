@@ -1,12 +1,12 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { Merchant } from "./Merchant.typings";
-import { apiGetMerchantListByCategoryId } from "./Merchant.services";
+import { MerchantType } from "pages/merchant/components/Merchant";
+import { apiGetMerchantListByCategoryId } from "./MerchantList.services";
 
 export const useQueryMerchantList: ({
   categoryId,
 }: {
   categoryId: string | undefined;
-}) => UseQueryResult<Merchant[], unknown> = ({ categoryId }) => {
+}) => UseQueryResult<MerchantType[], unknown> = ({ categoryId }) => {
   const query = useQuery({
     queryFn: async () => {
       if (!categoryId) {
@@ -15,7 +15,7 @@ export const useQueryMerchantList: ({
       const res = await apiGetMerchantListByCategoryId(categoryId);
       return res.data;
     },
-    queryKey: ["categories"],
+    queryKey: ["merchant", categoryId],
     enabled: !!categoryId,
   });
   return query;

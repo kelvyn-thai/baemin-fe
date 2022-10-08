@@ -1,6 +1,7 @@
 import Modal from "./Modal";
 
-export { default as ModalContent } from "./Content";
+export * from "./Modal.zustand";
 
-export * from "./zustand";
+export { default as ModalContent } from "./Modal.Content";
+
 export default Modal;

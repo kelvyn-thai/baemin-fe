@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { Category } from "./Category.typings";
-import { apiGetCategories } from "./Category.services";
+import { Category } from "pages/category/components/Category";
+import { apiGetCategories } from "./CategoryList.services";
 
 export const useQueryCategories: () => UseQueryResult<
   Category[],

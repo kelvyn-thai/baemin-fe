@@ -4,11 +4,12 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useRoutesStore } from "zustand-store/routes";
 import ErrorBoundary from "components/core/ErrorBoundary";
-import ModalAntd from "components/antd/Modal";
 import Modal from "components/core/Modal";
 import HomePage from "pages/home";
 import DriverPage from "pages/driver";
 import MerchantPage from "pages/merchant";
+import ItemPage from "pages/item";
+import PaymentPage from "pages/payment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +23,9 @@ const queryClient = new QueryClient({
 const allRoutes: PathRouteProps[] = [
   { path: "/", element: <HomePage /> },
   { path: "/driver", element: <DriverPage /> },
-  { path: "/merchant/:categoryId", element: <MerchantPage /> },
+  { path: "/merchant", element: <MerchantPage /> },
+  { path: "/items", element: <ItemPage /> },
+  { path: "/payment", element: <PaymentPage /> },
 ];
 
 const AllRoutes = ({ routes }: { routes: PathRouteProps[] }) => (
@@ -51,7 +54,6 @@ const App = () => {
         <ReactQueryDevtools initialIsOpen />
         <HashRouter>
           <AllRoutes routes={routes} />
-          <ModalAntd />
           <Modal />
         </HashRouter>
       </QueryClientProvider>

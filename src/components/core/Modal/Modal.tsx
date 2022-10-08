@@ -1,12 +1,13 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import { useModalStore } from "./zustand";
+import { useModalStore } from "./Modal.zustand";
+import "./Modal.styles.scss";
+import ModalCore from "./Modal.core";
 
 const BaseModal = () => {
   const { isVisible, content } = useModalStore();
   if (!isVisible) {
     return null;
   }
-  return <div className={styles.modalContainer}>{content}</div>;
+  return <ModalCore>{content}</ModalCore>;
 };
 export default React.memo(BaseModal);

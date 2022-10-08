@@ -28,7 +28,7 @@ const CoreButton: React.FC<
   return (
     <button
       type="button"
-      className={`h-10 p-2 w-fit bg-blue-500 ${className} ${
+      className={`h-10 p-2 bg-primary-btn rounded ${className} ${
         isDisabled ? "opacity-50 cursor-not-allowed" : ""
       }`}
       onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

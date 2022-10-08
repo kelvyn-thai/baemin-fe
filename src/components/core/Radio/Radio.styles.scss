@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+
+.radio-item {
+  grid-template-columns: min-content 1fr;
+}
+
+@mixin input-radio-custom {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+}
+
+input[type="radio"]:after {
+  @include input-radio-custom;
+  background-color: $primary-light;
+}
+
+input[type="radio"]:checked:after {
+  @include input-radio-custom;
+  background-color: $primary-btn;
+}

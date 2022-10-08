@@ -4,7 +4,3 @@ export type Category = {
   imgURL: string;
   merchant: string[];
 };
-
-export type CategoryResponse = {
-  data: Category[];
-};

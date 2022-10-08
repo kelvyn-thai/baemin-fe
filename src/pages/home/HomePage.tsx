@@ -9,9 +9,7 @@ const HomePage: React.FC = () => {
       <div>
         <img src={`${ENV.ASSETS_PATH}/images/banner.png`} alt="banner" />
       </div>
-      <div>
-        <CategoryList />
-      </div>
+      <CategoryList />
     </div>
   );
 };
