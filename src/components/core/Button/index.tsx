@@ -9,6 +9,7 @@ export interface ICoreButtonProps {
   onClick?: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => any | undefined;
+  type?: "primary" | "default";
 }
 
 const CoreButton: React.FC<
@@ -21,16 +22,32 @@ const CoreButton: React.FC<
   onHandleUploadFile,
   isDisabled,
   onClick,
+  type,
   ...rest
 }) => {
   const refInputFile: React.MutableRefObject<HTMLInputElement | null> =
     React.useRef(null);
+  const btnClassName: string = React.useMemo(() => {
+    let defaultClass = ``;
+    switch (type) {
+      case "primary":
+        defaultClass += `text-primary-light bg-primary-color border-transparent`;
+        break;
+      case "default":
+        defaultClass += `text-primary-color bg-primary-light border-primary-color`;
+        break;
+      default:
+        break;
+    }
+    if (isDisabled) {
+      defaultClass += `opacity-50 cursor-not-allowed`;
+    }
+    return defaultClass;
+  }, [type, isDisabled]);
   return (
     <button
       type="button"
-      className={`h-10 p-2 bg-primary-btn rounded ${className} ${
-        isDisabled ? "opacity-50 cursor-not-allowed" : ""
-      }`}
+      className={`h-10 p-2 rounded border-[0.5px] ${btnClassName} ${className}`}
       onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (isDisabled) {
           return;
@@ -73,6 +90,7 @@ CoreButton.defaultProps = {
   onHandleUploadFile: undefined,
   isDisabled: false,
   onClick: undefined,
+  type: "primary",
 };
 
 export default React.memo(CoreButton);

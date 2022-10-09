@@ -23,7 +23,9 @@ const initialState: FixedBottomState = {
   content: null,
   data: {},
 };
-export const [useFixedBottomStore] = createStore<FixedBottomState & FixedBottomActions>(
+export const [useFixedBottomStore] = createStore<
+  FixedBottomState & FixedBottomActions
+>(
   (set) => ({
     ...initialState,
     actionOpenFixedBottom: ({ content, data }) =>

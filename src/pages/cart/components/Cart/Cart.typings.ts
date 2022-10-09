@@ -3,6 +3,7 @@ export type CartItemType = {
   quantity: number;
   extraItems: string[];
   note?: string;
+  totalPrice?: number;
 };
 
 export type CartType = {

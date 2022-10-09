@@ -12,13 +12,14 @@ module.exports = {
       primary: {
         dark: "#000000",
         gray: "#8a8b99",
-        
+
         light: "#FFFFFF",
         "light-gray": "#f5f6fa",
         "light-gray-1": "#eaeff5",
 
         warning: "#fba172",
         btn: "#39c5ca",
+        color: "#39c5ca",
       },
     },
   },

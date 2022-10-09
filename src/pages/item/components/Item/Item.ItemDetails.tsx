@@ -28,31 +28,37 @@ const ItemDetails: React.FC<IProps> = ({ data }) => {
           quantity: 1,
           extraItems: [],
           note: "",
+          totalPrice: 0,
         }
   );
   const { actionCloseModal } = useModalStore();
-  const totalPriceFormatted: string = React.useMemo(() => {
+  const estimatePriceData = React.useMemo(() => {
     const { quantity } = temporaryCart;
-    const totalMainPrice = price * quantity;
-    const totalSubPrice = temporaryCart.extraItems.reduce((prev, key) => {
-      const [addedValueKey, subItemKey] = key.split("/");
+    const estimatePrice = price * quantity;
+    const estimateExtraPrice = temporaryCart.extraItems.reduce((prev, key) => {
+      const [extraItemsKey, extraItem] = key.split("/");
       return (
         prev +
-        (extraItems[addedValueKey].items.find((i) => i.id === subItemKey)
+        (extraItems[extraItemsKey].items.find((i) => i.id === extraItem)
           ?.price || 0)
       );
     }, 0);
-    const totalPrice = totalMainPrice + totalSubPrice;
-    return currencyFormatted({ value: totalPrice });
-  }, [price, temporaryCart]);
+    const totalPrice = estimatePrice + estimateExtraPrice;
+    const totalPriceFormatted = currencyFormatted({ value: totalPrice });
+    return {
+      totalPrice,
+      totalPriceFormatted,
+    };
+  }, [data, temporaryCart]);
+  const { totalPriceFormatted, totalPrice } = estimatePriceData;
   const handleOperationCart = React.useCallback(() => {
     if (isItemExisted) {
-      actionUpdateItemFromCart(temporaryCart);
+      actionUpdateItemFromCart({ ...temporaryCart, totalPrice });
     } else {
-      actionAddItemToCart(temporaryCart);
+      actionAddItemToCart({ ...temporaryCart, totalPrice });
     }
     actionCloseModal();
-  }, [temporaryCart, isItemExisted, actionCloseModal]);
+  }, [temporaryCart, isItemExisted, totalPrice]);
   return (
     <ModalContent className="pb-40">
       <div className="flex items-center justify-center h-60">

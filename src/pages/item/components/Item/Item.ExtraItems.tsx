@@ -16,10 +16,10 @@ const ExtraItems: React.FC<{
   const handleSelectedItem = React.useCallback(
     (
       radioItem: RadioItem,
-      addedValueItem: ExtraItemsType,
+      extraItemsItem: ExtraItemsType,
       type: "checkbox" | "radio"
     ) => {
-      const key = `${addedValueItem.id}/${radioItem.id}`;
+      const key = `${extraItemsItem.id}/${radioItem.id}`;
       const isExisted = cart.extraItems.includes(key);
       switch (type) {
         case "checkbox": {
