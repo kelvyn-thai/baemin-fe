@@ -10,43 +10,30 @@ export type RadioItem = {
 };
 
 export interface IRadioInput {
-  items: RadioItem[];
-  onSelectedItem: (item: RadioItem) => any;
-  type?: "checkbox" | "radio";
+  data: RadioItem;
+  onSelectedItem: (data: RadioItem) => any;
 }
 
-export const RadioInput = ({
-  items,
-  type = "radio",
-  onSelectedItem,
-}: IRadioInput) => (
-  <div className="radio-input">
-    {items.map((i) => {
-      const { label, value, accessory, isChecked } = i;
-      return (
-        <div
-          key={value}
-          className="radio-item grid gap-3 items-center cursor-pointer"
-          onClick={() => onSelectedItem(i)}
-        >
-          <input
-            type={type}
-            value={value}
-            checked={isChecked}
-            name={label}
-            onChange={() => onSelectedItem(i)}
-            className="w-5 h-5 cursor-pointer relative"
-          />
-          <label htmlFor={label}>{label}</label>
-          {accessory && accessory}
-        </div>
-      );
-    })}
-  </div>
-);
-
-RadioInput.defaultProps = {
-  type: "radio",
+export const RadioInput = ({ data, onSelectedItem }: IRadioInput) => {
+  const { value, isChecked, accessory, label } = data;
+  return (
+    <div
+      key={value}
+      className="radio-container grid gap-3 items-center cursor-pointer p-3 border-[0.5px]"
+      onClick={() => onSelectedItem(data)}
+    >
+      <input
+        type="radio"
+        value={value}
+        checked={isChecked}
+        name={label}
+        onChange={() => onSelectedItem(data)}
+        className="w-5 h-5 cursor-pointer relative"
+      />
+      <label htmlFor={label}>{label}</label>
+      {accessory && accessory}
+    </div>
+  );
 };
 
 export default React.memo(RadioInput);

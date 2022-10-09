@@ -1,6 +1,7 @@
 import Item from "pages/item/components/Item";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
+import FixedBottom from "components/core/FixedBottom";
 import Loading from "components/core/Loading";
 import "./ItemList.styles.scss";
 import { useItemList, useQueryItemList } from "./ItemList.hook";
@@ -18,6 +19,9 @@ const ItemList: React.FC = () => {
       {items.map((item) => (
         <Item data={item} key={item.id} />
       ))}
+      <FixedBottom>
+        <div>sdfasdf</div>
+      </FixedBottom>
     </div>
   );
 };

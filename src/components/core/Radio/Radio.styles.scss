@@ -1,6 +1,6 @@
 @import "../../../styles/variables";
 
-.radio-item {
+.radio-container {
   grid-template-columns: min-content 1fr;
 }
 
@@ -25,4 +25,13 @@ input[type="radio"]:after {
 input[type="radio"]:checked:after {
   @include input-radio-custom;
   background-color: $primary-btn;
+}
+
+input[type="checkbox"] {
+  accent-color: $primary-color;
+  color: #fff;
+}
+
+input[type="checkbox"]:checked {
+  color: #fff;
 }

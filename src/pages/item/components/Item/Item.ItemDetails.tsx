@@ -1,10 +1,11 @@
 import Button from "components/core/Button";
 import CountBox from "components/core/CountBox";
-import { ModalContent } from "components/core/Modal";
+import { ModalContent, useModalStore } from "components/core/Modal";
 import { useCartStore, CartItemType } from "pages/cart/components/Cart";
 import React from "react";
 import { currencyFormatted } from "utils/currencyFormatted";
 import "./Item.styles.scss";
+import FixedBottom from "components/core/FixedBottom";
 import ItemExtraItems from "./Item.ExtraItems";
 import { ItemFormattedType } from "./Item.typings";
 
@@ -14,20 +15,26 @@ interface IProps {
 
 const ItemDetails: React.FC<IProps> = ({ data }) => {
   const { id, imgURL, extraItems, name, priceFormatted, price } = data;
-  const [cart, setCart] = React.useState<CartItemType>({
-    id,
-    quantity: 1,
-    extraItems: [],
-    note: "",
-  });
-  const {
-    cart: { items },
-    actionUpdateCart,
-  } = useCartStore();
+  const { cart, actionAddItemToCart, actionUpdateItemFromCart } =
+    useCartStore();
+  const { items } = cart;
+  const foundCart = items.find((i) => i.id === id);
+  const isItemExisted = !!foundCart?.id;
+  const [temporaryCart, setCart] = React.useState<CartItemType>(
+    isItemExisted
+      ? foundCart
+      : {
+          id,
+          quantity: 1,
+          extraItems: [],
+          note: "",
+        }
+  );
+  const { actionCloseModal } = useModalStore();
   const totalPriceFormatted: string = React.useMemo(() => {
-    const { quantity } = cart;
+    const { quantity } = temporaryCart;
     const totalMainPrice = price * quantity;
-    const totalSubPrice = cart.extraItems.reduce((prev, key) => {
+    const totalSubPrice = temporaryCart.extraItems.reduce((prev, key) => {
       const [addedValueKey, subItemKey] = key.split("/");
       return (
         prev +
@@ -37,12 +44,15 @@ const ItemDetails: React.FC<IProps> = ({ data }) => {
     }, 0);
     const totalPrice = totalMainPrice + totalSubPrice;
     return currencyFormatted({ value: totalPrice });
-  }, [price, cart]);
-  const isItemExisted = items.find((i) => i.id === id);
-  const handleChangeCountItem = React.useCallback(
-    (value: number) => setCart((c) => ({ ...c, quantity: value })),
-    [cart, setCart]
-  );
+  }, [price, temporaryCart]);
+  const handleOperationCart = React.useCallback(() => {
+    if (isItemExisted) {
+      actionUpdateItemFromCart(temporaryCart);
+    } else {
+      actionAddItemToCart(temporaryCart);
+    }
+    actionCloseModal();
+  }, [temporaryCart, isItemExisted, actionCloseModal]);
   return (
     <ModalContent className="pb-40">
       <div className="flex items-center justify-center h-60">
@@ -57,27 +67,41 @@ const ItemDetails: React.FC<IProps> = ({ data }) => {
           <i className="fa-regular fa-file-lines text-base" />
           <input
             placeholder="Any note for store?"
-            value={cart.note}
-            onChange={(e) => setCart({ ...cart, note: e.target.value })}
+            value={temporaryCart.note}
+            onChange={(e) =>
+              setCart({ ...temporaryCart, note: e.target.value })
+            }
           />
         </div>
       </div>
-      <ItemExtraItems {...{ cart, setCart, data: extraItems }} />
-      <div className="fixed left-0 w-[100%] bottom-0 p-5 box-shadow bg-primary-light border-solid border-[0.5px]">
+      <ItemExtraItems {...{ cart: temporaryCart, setCart, data: extraItems }} />
+      <FixedBottom>
         <div className="operation-block grid items-center gap-4">
           <CountBox
-            defaultCount={1}
+            count={temporaryCart.quantity}
             min={1}
-            handleChangeCount={handleChangeCountItem}
+            handleDecrementCount={() =>
+              setCart({
+                ...temporaryCart,
+                quantity: temporaryCart.quantity - 1,
+              })
+            }
+            handleIncrementCount={() =>
+              setCart({
+                ...temporaryCart,
+                quantity: temporaryCart.quantity + 1,
+              })
+            }
           />
           <Button
             title={`${
               isItemExisted ? "Update" : "Add"
             } - ${totalPriceFormatted}`}
             className="w-[100%]"
+            onClick={handleOperationCart}
           />
         </div>
-      </div>
+      </FixedBottom>
     </ModalContent>
   );
 };
