@@ -1,0 +1,10 @@
+.operation-block {
+  grid-template-columns: min-content 1fr;
+}
+
+.extra-list .radio-container {
+  grid-template-columns: min-content 1fr min-content;
+}
+.extra-list .checkbox-container {
+  grid-template-columns: min-content 1fr min-content;
+}
