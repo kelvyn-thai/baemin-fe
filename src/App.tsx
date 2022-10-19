@@ -14,53 +14,57 @@ const queryClient = new QueryClient({
   },
 });
 
+const HomePageLazy = React.lazy(() => import("pages/home"));
+const MerchantPageLazy = React.lazy(() => import("pages/merchant"));
+const LoginPageLazy = React.lazy(() => import("pages/authen/components/Login"));
+const SettingPageLazy = React.lazy(() => import("pages/setting/"));
+const ItemPageLazy = React.lazy(() => import("pages/item"));
+const PaymentPageLazy = React.lazy(() => import("pages/payment"));
+const ManageOrdersPageLazy = React.lazy(
+  () => import("pages/order/components/ManageOrders")
+);
+const DashboardOrderPageLazy = React.lazy(
+  () => import("pages/admin/components/DashboardOrderPage")
+);
+
 const customerRoutes = [
   {
     path: "/",
-    element: React.lazy(() => import("pages/home")),
+    element: <HomePageLazy />,
   },
   {
     path: "/merchant",
-    element: React.lazy(() => import("pages/merchant")),
+    element: <MerchantPageLazy />,
   },
   {
     path: "/items",
-    element: React.lazy(() => import("pages/item")),
+    element: <ItemPageLazy />,
   },
   {
     path: "/payment",
-    element: React.lazy(() => import("pages/payment")),
+    element: <PaymentPageLazy />,
   },
   {
     path: "/manage-orders",
-    element: React.lazy(() => import("pages/order/components/ManageOrders")),
+    element: <ManageOrdersPageLazy />,
   },
 ];
 
 const adminRoute = [
   {
     path: "/dashboard-order",
-    element: React.lazy(
-      () => import("pages/admin/components/DashboardOrderPage")
-    ),
+    element: <DashboardOrderPageLazy />,
   },
 ];
 
-const routes: {
-  path: string;
-  element:
-    | React.LazyExoticComponent<React.MemoExoticComponent<() => JSX.Element>>
-    | React.LazyExoticComponent<React.NamedExoticComponent<() => JSX.Element>>
-    | JSX.Element
-    | React.ReactNode;
-}[] = [
+const routes = [
   {
     path: "/login",
-    element: React.lazy(() => import("pages/authen/components/Login")),
+    element: <LoginPageLazy />,
   },
   {
     path: "/setting",
-    element: React.lazy(() => import("pages/setting/")),
+    element: <SettingPageLazy />,
   },
   ...customerRoutes,
   ...adminRoute,
