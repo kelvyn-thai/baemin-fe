@@ -1,3 +1,4 @@
+import { CustomerRoute } from "components/core/PrivateRoute";
 import { useQueryAllOrders } from "pages/order/components/Order";
 import React from "react";
 
@@ -12,4 +13,8 @@ const DashboardOrderPage: React.FC = () => {
   );
 };
 
-export default React.memo(DashboardOrderPage);
+export default React.memo(() => (
+  <CustomerRoute userRole="admin">
+    <DashboardOrderPage />
+  </CustomerRoute>
+));

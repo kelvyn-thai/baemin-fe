@@ -11,6 +11,7 @@ import { currencyFormatted } from "utils/currencyFormatted";
 import { delay } from "utils/delay";
 import ScrollView from "components/core/ScrollView";
 import { useAuthenStore } from "pages/authen";
+import { CustomerRoute } from "components/core/PrivateRoute";
 
 const OrderHistoryItem = React.memo(({ order }: { order: OrderType }) => {
   const {
@@ -89,4 +90,8 @@ const ManageOrders = () => {
   );
 };
 
-export default React.memo(ManageOrders);
+export default React.memo(() => (
+  <CustomerRoute userRole="customer">
+    <ManageOrders />
+  </CustomerRoute>
+));

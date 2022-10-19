@@ -1,3 +1,4 @@
+import { CustomerRoute } from "components/core/PrivateRoute";
 import { useAuthenStore } from "pages/authen";
 import React from "react";
 import HomePageAdmin from "./HomePage.Admin";
@@ -20,4 +21,8 @@ const HomePage: React.FC = () => {
   }
 };
 
-export default React.memo(HomePage);
+export default React.memo(() => (
+  <CustomerRoute userRole="customer">
+    <HomePage />
+  </CustomerRoute>
+));

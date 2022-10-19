@@ -1,18 +1,9 @@
-import { Routes, Route, PathRouteProps, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "components/core/ErrorBoundary";
 import Modal from "components/core/Modal";
-import HomePage from "pages/home";
-import MerchantPage from "pages/merchant";
-import ItemPage from "pages/item";
-import PaymentPage from "pages/payment";
-import ManageOrders from "pages/order/components/ManageOrders";
-import SettingPage from "pages/setting";
-import LoginPage from "pages/authen/components/Login";
-import DashboardOrderPage from "pages/admin/components/DashboardOrderPage";
-import { CustomerRoute, AdminRoute } from "components/core/PrivateRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,68 +14,53 @@ const queryClient = new QueryClient({
   },
 });
 
-const customerRoutes: PathRouteProps[] = [
+const customerRoutes = [
   {
     path: "/",
-    element: (
-      <CustomerRoute userRole="customer">
-        <HomePage />
-      </CustomerRoute>
-    ),
+    element: React.lazy(() => import("pages/home")),
   },
   {
     path: "/merchant",
-    element: (
-      <CustomerRoute userRole="customer">
-        <MerchantPage />
-      </CustomerRoute>
-    ),
+    element: React.lazy(() => import("pages/merchant")),
   },
   {
     path: "/items",
-    element: (
-      <CustomerRoute userRole="customer">
-        <ItemPage />
-      </CustomerRoute>
-    ),
+    element: React.lazy(() => import("pages/item")),
   },
   {
     path: "/payment",
-    element: (
-      <CustomerRoute userRole="customer">
-        <PaymentPage />
-      </CustomerRoute>
-    ),
+    element: React.lazy(() => import("pages/payment")),
   },
   {
     path: "/manage-orders",
-    element: (
-      <CustomerRoute userRole="customer">
-        <ManageOrders />
-      </CustomerRoute>
-    ),
+    element: React.lazy(() => import("pages/order/components/ManageOrders")),
   },
 ];
 
-const adminRoute: PathRouteProps[] = [
+const adminRoute = [
   {
     path: "/dashboard-order",
-    element: (
-      <AdminRoute userRole="admin">
-        <DashboardOrderPage />
-      </AdminRoute>
+    element: React.lazy(
+      () => import("pages/admin/components/DashboardOrderPage")
     ),
   },
 ];
 
-const routes: PathRouteProps[] = [
+const routes: {
+  path: string;
+  element:
+    | React.LazyExoticComponent<React.MemoExoticComponent<() => JSX.Element>>
+    | React.LazyExoticComponent<React.NamedExoticComponent<() => JSX.Element>>
+    | JSX.Element
+    | React.ReactNode;
+}[] = [
   {
     path: "/login",
-    element: <LoginPage />,
+    element: React.lazy(() => import("pages/authen/components/Login")),
   },
   {
     path: "/setting",
-    element: <SettingPage />,
+    element: React.lazy(() => import("pages/setting/")),
   },
   ...customerRoutes,
   ...adminRoute,
@@ -101,7 +77,9 @@ const App = () => (
               key={path}
               path={path}
               element={
-                <React.Suspense fallback="...">{element}</React.Suspense>
+                <React.Suspense fallback="...">
+                  {element as unknown as React.ReactNode}
+                </React.Suspense>
               }
             />
           ))}

@@ -3,6 +3,7 @@ import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import FixedBottom from "components/core/FixedBottom";
 import { useCartInfo, useCartStore } from "pages/cart/components/Cart";
 import Button from "components/core/Button";
+import { CustomerRoute } from "components/core/PrivateRoute";
 import { useAuthenStore } from "pages/authen";
 import { useMutationCreateOrder } from "pages/order/components/Order/Order.hook";
 import ItemList from "./components/ItemList";
@@ -57,4 +58,8 @@ const Item: React.FC = () => {
   );
 };
 
-export default React.memo(Item);
+export default React.memo(() => (
+  <CustomerRoute userRole="customer">
+    <Item />
+  </CustomerRoute>
+));
