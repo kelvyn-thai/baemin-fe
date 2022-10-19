@@ -1,20 +1,15 @@
-const HtmlWebpackInjectPreload = require("@principalstudio/html-webpack-inject-preload");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = function override(config, env) {
-  // do stuff with the webpack config...
-//   config.plugins.push(
-//     new HtmlWebpackInjectPreload({
-//       files: [
-//         {
-//           match: /.*\.woff2$/,
-//           attributes: { as: "font", type: "font/woff2", crossorigin: true },
-//         },
-//         {
-//           match: /.*\.css$/,
-//           attributes: { as: "style" },
-//         },
-//       ],
-//     })
-//   );
+  config.optimization.minimizer.push(
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        output: {
+          comments: false,
+        },
+      },
+    })
+  );
   return config;
 };
