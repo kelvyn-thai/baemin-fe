@@ -42,7 +42,7 @@ const LoginPage = () => {
   return (
     <div className="p-5">
       <img
-        className="mb-5"
+        className="mb-5 w-[100%] aspect-video"
         src="assets/images/banner.png"
         alt="banner-baemin"
       />
