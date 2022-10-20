@@ -23,7 +23,7 @@ const initialState: AuthenState = {
 };
 
 export const [useAuthenStore] = createPersistStore<AuthenState & AuthenActions>(
-  (set, get) => ({
+  (set) => ({
     ...initialState,
     actionLoggedIn: (user) => set({ userInfo: user, isLoggedIn: true }),
     actionLogout: () => set({ ...initialState }),
