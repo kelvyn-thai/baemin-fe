@@ -43,7 +43,7 @@ const LoginPage = () => {
     <div className="p-5">
       <img
         className="mb-5 w-[100%] aspect-video"
-        src="assets/images/banner.png"
+        src="assets/images/banner.webp"
         alt="banner-baemin"
       />
       <CoreInput
