@@ -2,6 +2,7 @@ const path = require("path");
 const glob = require("glob");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const PurgeCSSPlugin = require("purgecss-webpack-plugin").PurgeCSSPlugin;
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const PATHS = {
   src: path.join(__dirname, "../src"),
@@ -19,6 +20,16 @@ module.exports = function override(config, env) {
         output: {
           comments: false,
         },
+      },
+    }),
+    new CssMinimizerPlugin({
+      minimizerOptions: {
+        preset: [
+          "default",
+          {
+            discardComments: { removeAll: true },
+          },
+        ],
       },
     })
   );
