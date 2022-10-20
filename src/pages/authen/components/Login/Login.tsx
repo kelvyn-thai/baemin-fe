@@ -7,6 +7,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutationLogin } from "./Login.hook";
 
+import(/* webpackPrefetch: true */ "pages/home");
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const { actionLoggedIn } = useAuthenStore();
