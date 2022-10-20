@@ -1,4 +1,3 @@
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = function override(config, env) {
@@ -11,5 +10,6 @@ module.exports = function override(config, env) {
       },
     })
   );
+  config.optimization.usedExports = true;
   return config;
 };
