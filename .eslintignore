@@ -8,3 +8,4 @@ scripts
 react-rewrited-scripts
 config-overrides.js
 deployment
+tailwind.config.js

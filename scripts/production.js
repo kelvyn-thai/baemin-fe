@@ -8,11 +8,11 @@ const PATHS = {
 };
 
 module.exports = function override(config, env) {
-  config.plugins.push(
-    new PurgeCSSPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
-    })
-  );
+  // config.plugins.push(
+  //   new PurgeCSSPlugin({
+  //     paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+  //   })
+  // );
   config.optimization.minimizer.push(
     new UglifyJsPlugin({
       uglifyOptions: {
