@@ -1,6 +1,6 @@
 import useOutsideRef from "hooks/useDetectClickOutside";
 import React from "react";
-import style from "./style.module.scss";
+import "./Dropdown.styles.scss";
 
 export interface IOption {
   id: string;
@@ -34,7 +34,7 @@ const Dropdown: React.FC<IDropdown> = ({
       className={`dropdown-container w-fit mb-4 ${dropdownContainerClassName}`}
     >
       <div
-        className={`flex border-none relative cursor-pointer items-center pl-2 h-10 min-w-[150px] text-white bg-blue-500 font-normal capitalize w-fit ${style.dropdown}`}
+        className="flex border-none relative cursor-pointer items-center pl-2 h-10 min-w-[150px] text-white bg-blue-500 font-normal capitalize w-fit"
         onClick={() => setToggle(!toggle)}
       >
         {defaultSelected}
@@ -53,11 +53,7 @@ const Dropdown: React.FC<IDropdown> = ({
             ))}
           </div>
         )}
-        <div
-          className={`${style.toggle} ${
-            toggle ? style.toggleVisible : style.toggleDisabled
-          }`}
-        />
+        <div className={`${toggle ? "toggle-visible" : "toggle-disabled"}`} />
       </div>
     </div>
   );
