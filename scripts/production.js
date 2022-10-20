@@ -3,6 +3,7 @@ const glob = require("glob");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const PurgeCSSPlugin = require("purgecss-webpack-plugin").PurgeCSSPlugin;
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const PreloadWebpackPlugin = require("preload-webpack-plugin");
 
 const PATHS = {
   src: path.join(__dirname, "../src"),
@@ -34,5 +35,11 @@ module.exports = function override(config, env) {
     })
   );
   config.optimization.usedExports = true;
+  config.plugins.push(
+    new PreloadWebpackPlugin({
+      rel: "preload",
+      include: ["allAssets", "main"],
+    })
+  );
   return config;
 };

@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "components/core/ErrorBoundary";
 import Modal from "components/core/Modal";
 
+import(/* webpackPrefetch: true */ "components/core/Modal");
+import(/* webpackPrefetch: true */ "components/core/FixedBottom");
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
