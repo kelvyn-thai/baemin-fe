@@ -40,7 +40,7 @@ const CoreButton: React.FC<
         break;
     }
     if (isDisabled) {
-      defaultClass += ` opacity-50 cursor-not-allowed bg-primary-gray`;
+      defaultClass += ` cursor-not-allowed bg-primary-gray`;
     }
     return defaultClass;
   }, [type, isDisabled]);

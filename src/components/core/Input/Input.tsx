@@ -70,7 +70,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
         return <Button {...optionProps} />;
       case "read-only": {
         const { value } = optionProps as InputReadOnlyProps;
-        return <div className="opacity-50 cursor-not-allowed">{value}</div>;
+        return <div className="cursor-not-allowed">{value}</div>;
       }
       case "input-dropdown": {
         const {
