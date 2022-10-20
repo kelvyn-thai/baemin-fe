@@ -44,7 +44,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
               styles.input || ""
             )}`}
             maxLength={32}
-            {...optionProps}
+            {...{ ...optionProps, "aria-label": label }}
           />
         );
       }
@@ -62,7 +62,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
                 onChangeInput(e, value);
               }
             }}
-            {...rest}
+            {...{ ...rest, "aria-label": label }}
           />
         );
       }
@@ -112,6 +112,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
               {...{
                 ...optionProps,
                 type: isVisiblePassword ? "text" : "password",
+                "aria-label": label,
               }}
             />
             <i
