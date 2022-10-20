@@ -1,1 +1,1 @@
-{"version":3,"file":"static/css/620.b625b06f.chunk.css","mappings":"AAAA,uBAAuB,eAAgB","sources":["../%3Cinput%20css%207zPHBJ%3E"],"sourcesContent":[".menu-item-label:hover{font-weight:bold}\n"],"names":[],"sourceRoot":""}
+{"version":3,"file":"static/css/620.b625b06f.chunk.css","mappings":"AACE,uBACE","sources":["components/core/Menu/Menu.style.scss"],"sourcesContent":[".menu-item-label {\n  &:hover {\n    font-weight: bold;\n  }\n}\n"],"names":[],"sourceRoot":""}
