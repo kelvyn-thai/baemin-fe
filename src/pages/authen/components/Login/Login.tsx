@@ -54,6 +54,7 @@ const LoginPage = () => {
             value: state.username,
             name: "username",
             onChange: onChangeInput,
+            "aria-label": "User name",
           } as React.InputHTMLAttributes<HTMLInputElement>
         }
       />
@@ -66,6 +67,7 @@ const LoginPage = () => {
             name: "password",
             onChange: onChangeInput,
             onKeyDown: (e) => e.key === "Enter" && onLogin(),
+            "aria-label": "Password",
           } as React.InputHTMLAttributes<HTMLInputElement>
         }
         isRequired

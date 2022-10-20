@@ -132,7 +132,8 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
   }, [props, isVisiblePassword, setIsVisiblePassword]);
   return (
     <div className={`grid ${styles.inputContainer} mb-4`}>
-      <div
+      <label
+        htmlFor={label}
         className={`flex items-center black font-medium text-sm ${styles.inputLabel}`}
       >
         <span
@@ -141,7 +142,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
           *
         </span>
         {label}
-      </div>
+      </label>
       {renderInput()}
     </div>
   );
