@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/33.c3b0b850.chunk.css","mappings":"AAAA,UACE,aACA","sources":["pages/merchant/components/MerchantList/MerchantList.styles.scss"],"sourcesContent":[".merchant {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n"],"names":[],"sourceRoot":""}
