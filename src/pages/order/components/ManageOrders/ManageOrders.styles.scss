@@ -1,11 +1,3 @@
-.order-item {
-  grid-template-columns: 1fr min-content;
-}
-
-.block-status {
-  grid-template-columns: min-content min-content 1fr;
-}
-
 .order-list {
   height: calc(100vh - 48px);
 }

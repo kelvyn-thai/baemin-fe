@@ -4,6 +4,8 @@ interface IScrollView {
   onEndReached?: () => any;
   threshold?: number;
   className?: string;
+  data: any[];
+  renderItem: (item: any) => React.ReactNode | React.ReactElement | any;
 }
 
 const ScrollView: React.FC<
@@ -12,7 +14,14 @@ const ScrollView: React.FC<
       React.HTMLAttributes<HTMLDivElement>,
       HTMLDivElement
     >
-> = ({ children, onEndReached, threshold = 10, className }) => {
+> = ({
+  children,
+  onEndReached,
+  threshold = 10,
+  className,
+  data,
+  renderItem,
+}) => {
   const onScroll = React.useCallback(
     (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
       const {
@@ -33,6 +42,7 @@ const ScrollView: React.FC<
       }`}
       onScroll={onScroll}
     >
+      {data.map((item) => renderItem(item))}
       {children}
     </div>
   );

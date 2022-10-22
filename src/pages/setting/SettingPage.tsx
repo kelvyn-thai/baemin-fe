@@ -3,8 +3,34 @@ import { useAuthenStore } from "pages/authen";
 import React from "react";
 import Button from "components/core/Button";
 import { useNavigate } from "react-router-dom";
+import Menu from "components/core/Menu";
 import SettingPageCustomer from "./SettingPage.Customer";
 import SettingPageAdmin from "./SettingPage.Admin";
+
+const DefaultMenu = React.memo(() => (
+  <Menu
+    className="mt-5"
+    items={[
+      {
+        key: "rate-baemin",
+        label: "Rate Baemin",
+      },
+      {
+        key: "notification",
+        label: "Notification",
+      },
+      {
+        key: "help-sharing",
+        label: "Help Sharing",
+      },
+      {
+        key: "terms-and-condition",
+        label: "Terms and Conditions",
+      },
+    ]}
+    type="vertical"
+  />
+));
 
 const SettingPage: React.FC = () => {
   const {
@@ -22,6 +48,7 @@ const SettingPage: React.FC = () => {
         return (
           <>
             <SettingPageCustomer />
+            <DefaultMenu />
             <Button
               title="Logout"
               onClick={handleLogOut}
@@ -33,6 +60,7 @@ const SettingPage: React.FC = () => {
         return (
           <>
             <SettingPageAdmin />
+            <DefaultMenu />
             <Button
               title="Logout"
               onClick={handleLogOut}

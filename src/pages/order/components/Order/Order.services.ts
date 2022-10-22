@@ -3,6 +3,7 @@ import HTTP from "http-request";
 import { CartType } from "pages/cart/components/Cart";
 import {
   CreateOrderResponseType,
+  OrderStatusListResponseType,
   UpdateOrderResponseType,
 } from "./Order.typings";
 
@@ -17,3 +18,6 @@ export const apiUpdateOrder: (
   orderInfo: any
 ) => Promise<UpdateOrderResponseType> = (orderId, orderInfo) =>
   http.patch("", { orderId, orderInfo });
+
+export const apiOrderStatusList: () => Promise<OrderStatusListResponseType> =
+  () => http.get("status-list");

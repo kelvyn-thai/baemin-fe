@@ -3,9 +3,7 @@ import React from "react";
 import "./Dropdown.styles.scss";
 
 export interface IOption {
-  id: string;
   value: string;
-  label: string;
 }
 
 interface IDropdown {
@@ -31,24 +29,24 @@ const Dropdown: React.FC<IDropdown> = ({
   return (
     <div
       ref={ref}
-      className={`dropdown-container w-fit mb-4 ${dropdownContainerClassName}`}
+      className={`dropdown-container w-fit ${dropdownContainerClassName}`}
     >
       <div
-        className="flex border-none relative cursor-pointer items-center pl-2 h-10 min-w-[150px] text-white bg-blue-500 font-normal capitalize w-fit"
+        className="flex border-none relative cursor-pointer items-center pl-2 h-10 min-w-[150px] text-white bg-primary-color font-normal capitalize w-fit rounded"
         onClick={() => setToggle(!toggle)}
       >
-        {defaultSelected}
+        <span className="text-sm">{defaultSelected}</span>
         {toggle && (
           <div className="dropdown-menu absolute top-[100%] left-0 w-[100%] z-10">
-            {options.map(({ id, value, label }) => (
+            {options.map(({ value }) => (
               <div
-                className="flex pl-2 border-t-orange-100 items-center h-10 min-w-[150px] text-white bg-blue-500 font-medium capitalize w-fit hover:bg-blue-600 hover:font-medium border-solid border-t-[0.5px]"
-                key={id}
+                className="flex pl-2 border-t-orange-100 items-center h-10 min-w-[150px] text-white bg-primary-color font-medium capitalize w-fit hover:bg-primary-light-gray-1 hover:text-primary-dark hover:font-medium border-solid border-t-[0.5px] text-sm"
+                key={value}
                 onClick={() => {
                   onSelectOption(value);
                 }}
               >
-                {label}
+                {value}
               </div>
             ))}
           </div>

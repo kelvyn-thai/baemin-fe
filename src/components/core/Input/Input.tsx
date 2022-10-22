@@ -1,8 +1,7 @@
-import classNames from "classnames";
 import React from "react";
 import Button, { ICoreButtonProps } from "components/core/Button";
 import { DropdownBox } from "components/core/Dropdown";
-import styles from "./Input.styles.module.scss";
+import "./Input.styles.scss";
 import {
   InputNumberProps,
   InputReadOnlyProps,
@@ -18,7 +17,7 @@ type InputType =
   | "password";
 
 interface ICoreInput {
-  label: string;
+  label?: string;
   isRequired?: boolean;
   type?: InputType | string;
   optionProps?:
@@ -28,21 +27,27 @@ interface ICoreInput {
     | InputDropdownBoxProps
     | any;
   renderInputComponent?: () => React.ReactElement | React.ReactNode | any;
+  containerClassName?: string;
 }
 
-const defaultInputStyle = `w-fit border-solid border-gray-500 border-[0.5px] focus:border-blue-500 block outline-none h-10 rounded text-black font-normal text-sm w-[100%] py-2 px-3`;
+const defaultInputStyle = `border-solid border-gray-500 border-[0.5px] focus:border-blue-500 block outline-none h-10 rounded text-black font-normal text-sm w-[100%] py-2 px-3`;
 
 const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
-  const { label, isRequired, type, optionProps, renderInputComponent } = props;
+  const {
+    label,
+    isRequired,
+    type,
+    optionProps,
+    renderInputComponent,
+    containerClassName = "",
+  } = props;
   const [isVisiblePassword, setIsVisiblePassword] = React.useState(false);
   const renderInput = React.useCallback(() => {
     switch (type) {
       case "input": {
         return (
           <input
-            className={`w${defaultInputStyle} ${classNames(
-              styles.input || ""
-            )}`}
+            className={`${defaultInputStyle}`}
             maxLength={32}
             {...{ ...optionProps, "aria-label": label }}
           />
@@ -53,7 +58,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
         const floatRegExp = /^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/;
         return (
           <input
-            className={`${defaultInputStyle} ${classNames(styles.input || "")}`}
+            className={`${defaultInputStyle}`}
             maxLength={32}
             onChange={(e) => {
               e.preventDefault();
@@ -105,9 +110,7 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
         return (
           <div className="relative h-10 ">
             <input
-              className={`w${defaultInputStyle} absolute left-0 top-0 w-[100%] h-[100%] pr-8 ${classNames(
-                styles.input || ""
-              )}`}
+              className={`${defaultInputStyle} absolute left-0 top-0 w-[100%] h-[100%] pr-8`}
               maxLength={32}
               {...{
                 ...optionProps,
@@ -132,18 +135,23 @@ const CoreInput: React.FC<ICoreInput> = (props: ICoreInput) => {
     }
   }, [props, isVisiblePassword, setIsVisiblePassword]);
   return (
-    <div className={`grid ${styles.inputContainer} mb-4`}>
-      <label
-        htmlFor={label}
-        className={`flex items-center black font-medium text-sm ${styles.inputLabel}`}
-      >
-        <span
-          className={`${isRequired ? "opacity-100" : "opacity-0"} text-red-500`}
+    <div className={`grid ${containerClassName || "input-container"} mb-4`}>
+      {label && (
+        <label
+          htmlFor={label}
+          className="flex items-center black font-medium text-sm"
         >
-          *
-        </span>
-        {label}
-      </label>
+          <span
+            className={`${
+              isRequired ? "opacity-100" : "opacity-0"
+            } text-red-500`}
+          >
+            *
+          </span>
+          {label}
+        </label>
+      )}
+
       {renderInput()}
     </div>
   );
@@ -153,6 +161,8 @@ CoreInput.defaultProps = {
   type: "input",
   optionProps: null,
   renderInputComponent: undefined,
+  label: "",
+  containerClassName: "",
 };
 
 export default React.memo(CoreInput);

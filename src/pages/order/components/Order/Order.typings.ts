@@ -26,10 +26,18 @@ export type OrderType = {
   userId: string;
 };
 
+export type OrderStatusListType = {
+  [key: string]: string;
+};
+
 export type CreateOrderResponseType = {
   data: OrderType;
 };
 
 export type UpdateOrderResponseType = {
   data: OrderType;
+};
+
+export type OrderStatusListResponseType = {
+  data: OrderStatusListType;
 };

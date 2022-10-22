@@ -26,9 +26,6 @@ const PaymentPageLazy = React.lazy(() => import("pages/payment"));
 const ManageOrdersPageLazy = React.lazy(
   () => import("pages/order/components/ManageOrders")
 );
-const DashboardOrderPageLazy = React.lazy(
-  () => import("pages/admin/components/DashboardOrderPage")
-);
 
 const customerRoutes = [
   {
@@ -53,13 +50,6 @@ const customerRoutes = [
   },
 ];
 
-const adminRoute = [
-  {
-    path: "/dashboard-order",
-    element: <DashboardOrderPageLazy />,
-  },
-];
-
 const routes = [
   {
     path: "/login",
@@ -70,7 +60,6 @@ const routes = [
     element: <SettingPageLazy />,
   },
   ...customerRoutes,
-  ...adminRoute,
 ];
 
 const App = () => (

@@ -16,6 +16,9 @@ const CartBlock = React.memo(() => {
   const mutationCreateOrder = useMutationCreateOrder();
   const { isLoading } = mutationCreateOrder;
   const handleCheckout = async () => {
+    // await Promise.all(
+    //   [...Array(10)].map(() => mutationCreateOrder.mutateAsync(cart))
+    // );
     await mutationCreateOrder.mutateAsync(cart);
     actionResetCard();
     navigate("/");

@@ -5,12 +5,11 @@ import {
   useQueryClient,
   UseQueryResult,
 } from "@tanstack/react-query";
-import dayjs from "dayjs";
 import { useAuthenStore } from "pages/authen";
 import { CartType } from "pages/cart/components/Cart";
 import { createOrder, getAllOrders } from "./Order.database";
-import { apiCreateNewOrder } from "./Order.services";
-import { OrderType } from "./Order.typings";
+import { apiCreateNewOrder, apiOrderStatusList } from "./Order.services";
+import { OrderStatusListType, OrderType } from "./Order.typings";
 
 export const useMutationCreateOrder: () => UseMutationResult<
   OrderType,
@@ -27,9 +26,7 @@ export const useMutationCreateOrder: () => UseMutationResult<
       return order;
     },
     {
-      onSuccess: (order) => {
-        // eslint-disable-next-line no-console
-        console.log("order here", order);
+      onSuccess: () => {
         queryClient.invalidateQueries(["order-history"]);
       },
     }
@@ -43,7 +40,10 @@ export const useQueryAllOrders: () => UseQueryResult<
 > = () => {
   const query = useQuery({
     queryKey: ["order-history"],
-    queryFn: () => getAllOrders(),
+    queryFn: async () => {
+      const orders = await getAllOrders();
+      return orders;
+    },
   });
   return query;
 };
@@ -54,10 +54,21 @@ export const useUserOrderList: ({ userId }: { userId: string }) => {
   const { userInfo } = useAuthenStore();
   const { data: orders = [] } = useQueryAllOrders();
   const ordersFilterByUserId = orders.filter((o) => o.userId === userInfo.id);
-  const ordersSortedByCreatedTime = ordersFilterByUserId.sort((a, b) =>
-    dayjs(a.createdTime).isBefore(b.createdTime) ? 1 : -1
-  );
   return {
-    orders: ordersSortedByCreatedTime,
+    orders: ordersFilterByUserId,
   };
+};
+
+export const useQueryStatusList: () => UseQueryResult<
+  OrderStatusListType,
+  unknown
+> = () => {
+  const query = useQuery({
+    queryKey: ["order-status-list"],
+    queryFn: async () => {
+      const res = await apiOrderStatusList();
+      return res.data;
+    },
+  });
+  return query;
 };

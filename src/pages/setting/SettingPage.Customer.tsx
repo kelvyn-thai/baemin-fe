@@ -58,28 +58,6 @@ const SettingPageCustomer: React.FC = () => (
       ]}
       type="vertical"
     />
-    <Menu
-      className="mt-5"
-      items={[
-        {
-          key: "rate-baemin",
-          label: "Rate Baemin",
-        },
-        {
-          key: "notification",
-          label: "Notification",
-        },
-        {
-          key: "help-sharing",
-          label: "Help Sharing",
-        },
-        {
-          key: "terms-and-condition",
-          label: "Terms and Conditions",
-        },
-      ]}
-      type="vertical"
-    />
   </>
 );
 

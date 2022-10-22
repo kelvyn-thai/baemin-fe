@@ -1,4 +1,4 @@
-import { useQueryMerchantList } from "pages/merchant/components/MerchantList/MerchantList.hook";
+import { useQueryMerchantListByCategoryId } from "pages/merchant/components/MerchantList/MerchantList.hook";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
 import Loading from "components/core/Loading";
@@ -8,7 +8,7 @@ import "./MerchantList.styles.scss";
 const MerchantList: React.FC = () => {
   const [searchParams] = useSearchParams();
   const categoryId = searchParams.get("categoryId") || "";
-  const { isLoading, data: merchantList = [] } = useQueryMerchantList({
+  const { isLoading, data: merchantList = [] } = useQueryMerchantListByCategoryId({
     categoryId,
   });
   return (

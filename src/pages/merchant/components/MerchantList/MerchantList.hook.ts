@@ -1,8 +1,11 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { MerchantType } from "pages/merchant/components/Merchant";
-import { apiGetMerchantListByCategoryId } from "./MerchantList.services";
+import {
+  apiGetMerchantListByCategoryId,
+  apiGetMerchantList,
+} from "./MerchantList.services";
 
-export const useQueryMerchantList: ({
+export const useQueryMerchantListByCategoryId: ({
   categoryId,
 }: {
   categoryId: string | undefined;
@@ -17,6 +20,20 @@ export const useQueryMerchantList: ({
     },
     queryKey: ["merchant", categoryId],
     enabled: !!categoryId,
+  });
+  return query;
+};
+
+export const useQueryMerchantList: () => UseQueryResult<
+  MerchantType[],
+  unknown
+> = () => {
+  const query = useQuery({
+    queryFn: async () => {
+      const res = await apiGetMerchantList();
+      return res.data;
+    },
+    queryKey: ["merchant-list"],
   });
   return query;
 };
