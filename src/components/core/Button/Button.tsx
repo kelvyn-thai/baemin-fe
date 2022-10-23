@@ -62,11 +62,7 @@ const CoreButton: React.FC<
       }}
       {...rest}
     >
-      {title && (
-        <div className="font-normal text-base leading-5">
-          {title}
-        </div>
-      )}
+      {title && <div className="font-normal text-base leading-5">{title}</div>}
       {children}
       <input
         ref={refInputFile}

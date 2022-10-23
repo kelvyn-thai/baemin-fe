@@ -19,6 +19,7 @@ In the project directory, you can run:
 - Copy .env.development -> .env
 - Run cmd npm/yarn start to start app on port 8080
 - Start api services on [baemin-api](https://github.com/phattnh/baemin-api)
+- Start socket services on [baemin-socket](https://github.com/phattnh/baemin-socket)
 
 ## Main Stack
 
