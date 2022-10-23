@@ -4,8 +4,11 @@ import FixedBottom from "components/core/FixedBottom";
 import { useCartInfo, useCartStore } from "pages/cart/components/Cart";
 import Button from "components/core/Button";
 import { CustomerRoute } from "components/core/PrivateRoute";
+import Header from "components/core/Header";
 import { useAuthenStore } from "pages/authen";
 import { useMutationCreateOrder } from "pages/order/components/Order/Order.hook";
+import socket from "socket-io";
+import { OrderType } from "pages/order/components/Order";
 import ItemList from "./components/ItemList";
 import "./ItemPage.styles.scss";
 
@@ -16,10 +19,8 @@ const CartBlock = React.memo(() => {
   const mutationCreateOrder = useMutationCreateOrder();
   const { isLoading } = mutationCreateOrder;
   const handleCheckout = async () => {
-    // await Promise.all(
-    //   [...Array(10)].map(() => mutationCreateOrder.mutateAsync(cart))
-    // );
-    await mutationCreateOrder.mutateAsync(cart);
+    const order: OrderType = await mutationCreateOrder.mutateAsync(cart);
+    socket.emit("customer-create-new-order", order);
     actionResetCard();
     navigate("/");
   };
@@ -54,9 +55,12 @@ const Item: React.FC = () => {
     actionInitCart({ merchantId, categoryId, userId: userInfo.id });
   }, [merchantId, categoryId]);
   return (
-    <div className="p-2">
-      <ItemList />
-      <CartBlock />
+    <div>
+      <Header title={merchantId} />
+      <div className="p-2">
+        <ItemList />
+        <CartBlock />
+      </div>
     </div>
   );
 };

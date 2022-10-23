@@ -8,9 +8,10 @@ import "./MerchantList.styles.scss";
 const MerchantList: React.FC = () => {
   const [searchParams] = useSearchParams();
   const categoryId = searchParams.get("categoryId") || "";
-  const { isLoading, data: merchantList = [] } = useQueryMerchantListByCategoryId({
-    categoryId,
-  });
+  const { isLoading, data: merchantList = [] } =
+    useQueryMerchantListByCategoryId({
+      categoryId,
+    });
   return (
     <div className="merchant-page p-2">
       {isLoading && <Loading />}

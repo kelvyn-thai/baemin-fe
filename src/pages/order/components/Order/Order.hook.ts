@@ -5,9 +5,10 @@ import {
   useQueryClient,
   UseQueryResult,
 } from "@tanstack/react-query";
+import { orderBy } from "lodash";
 import { useAuthenStore } from "pages/authen";
 import { CartType } from "pages/cart/components/Cart";
-import { createOrder, getAllOrders } from "./Order.database";
+import { createOrder, getAllOrders, updateOrder } from "./Order.database";
 import { apiCreateNewOrder, apiOrderStatusList } from "./Order.services";
 import { OrderStatusListType, OrderType } from "./Order.typings";
 
@@ -23,6 +24,27 @@ export const useMutationCreateOrder: () => UseMutationResult<
       const response = await apiCreateNewOrder(cart);
       const order = response.data;
       await createOrder(order);
+      return order;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["order-history"]);
+      },
+    }
+  );
+  return mutation;
+};
+
+export const useMutationUpdateOrder: () => UseMutationResult<
+  OrderType,
+  unknown,
+  OrderType,
+  unknown
+> = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation(
+    async (order: OrderType) => {
+      await updateOrder(order);
       return order;
     },
     {
@@ -53,7 +75,11 @@ export const useUserOrderList: ({ userId }: { userId: string }) => {
 } = () => {
   const { userInfo } = useAuthenStore();
   const { data: orders = [] } = useQueryAllOrders();
-  const ordersFilterByUserId = orders.filter((o) => o.userId === userInfo.id);
+  const ordersFilterByUserId = orderBy(
+    orders.filter((o) => o.userId === userInfo.id),
+    (o) => o.createdTime,
+    "desc"
+  );
   return {
     orders: ordersFilterByUserId,
   };

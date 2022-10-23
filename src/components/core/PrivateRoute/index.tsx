@@ -3,7 +3,7 @@ import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 export interface IPrivateRoute {
-  userRole: "admin" | "customer";
+  userRole: string | string[];
   children: React.ReactNode | React.ReactElement | any;
 }
 export const withPrivateRoute =
@@ -14,7 +14,11 @@ export const withPrivateRoute =
       return <Navigate to="/login" replace />;
     }
     const { children, userRole } = props;
-    if (userRole !== userInfo.role && location.pathname !== "/") {
+    const { role } = userInfo;
+    const dontHavePermission = Array.isArray(userRole)
+      ? !userRole.includes(role)
+      : role !== userRole;
+    if (dontHavePermission && location.pathname !== "/") {
       return <Navigate to="/" replace />;
     }
     return <Comp {...{ ...props }}>{children}</Comp>;

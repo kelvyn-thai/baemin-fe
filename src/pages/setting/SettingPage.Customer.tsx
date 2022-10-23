@@ -10,7 +10,7 @@ const Extra = React.memo(() => {
         {
           title: "My Orders",
           icon: <i className="fa-regular fa-address-book" />,
-          onClickItem: () => navigate("/manage-orders"),
+          onClickItem: () => navigate("/customer/manage-orders"),
         },
         {
           title: "Favorites Stores",

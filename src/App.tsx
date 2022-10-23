@@ -24,7 +24,11 @@ const SettingPageLazy = React.lazy(() => import("pages/setting/"));
 const ItemPageLazy = React.lazy(() => import("pages/item"));
 const PaymentPageLazy = React.lazy(() => import("pages/payment"));
 const ManageOrdersPageLazy = React.lazy(
-  () => import("pages/order/components/ManageOrders")
+  () => import("pages/customer/components/ManageOrders")
+);
+
+const OrderDetailsPageLazy = React.lazy(
+  () => import("pages/order/components/OrderDetails")
 );
 
 const customerRoutes = [
@@ -45,7 +49,7 @@ const customerRoutes = [
     element: <PaymentPageLazy />,
   },
   {
-    path: "/manage-orders",
+    path: "/customer/manage-orders",
     element: <ManageOrdersPageLazy />,
   },
 ];
@@ -58,6 +62,10 @@ const routes = [
   {
     path: "/setting",
     element: <SettingPageLazy />,
+  },
+  {
+    path: "/order",
+    element: <OrderDetailsPageLazy />,
   },
   ...customerRoutes,
 ];

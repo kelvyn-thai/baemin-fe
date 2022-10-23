@@ -34,7 +34,7 @@ const CoreButton: React.FC<
         defaultClass += `text-primary-light bg-primary-color border-transparent`;
         break;
       case "default":
-        defaultClass += `text-primary-color bg-primary-light border-primary-color`;
+        defaultClass += `text-primary-dark bg-primary-light border-primary-color`;
         break;
       default:
         break;
@@ -63,7 +63,7 @@ const CoreButton: React.FC<
       {...rest}
     >
       {title && (
-        <div className="text-white font-normal text-base leading-5">
+        <div className="font-normal text-base leading-5">
           {title}
         </div>
       )}

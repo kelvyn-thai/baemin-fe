@@ -69,7 +69,13 @@ const SettingPage: React.FC = () => {
           </>
         );
       default:
-        return null;
+        return (
+          <Button
+            title="Logout"
+            onClick={handleLogOut}
+            className="w-[100%] mt-5"
+          />
+        );
     }
   }, [role]);
   return (
