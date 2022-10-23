@@ -1,6 +1,7 @@
 ## What is this project?
 
 - This project using for create order tracking service.
+- Production: https://phattnh.github.io/baemin-fe/
 - Copyright Thai Nguyen Hoang Phat
 
 ## Available scripts
